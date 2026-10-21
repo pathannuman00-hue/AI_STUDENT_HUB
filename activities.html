@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 p-3">
+            <h4 class="fw-bold mb-3">Add New Activity</h4>
+            <form action="{{ url_for('add_activity') }}" method="POST">
+                <div class="mb-3"><label class="form-label">Title</label><input type="text" name="title" class="form-control" required></div>
+                <div class="mb-3"><label class="form-label">Category</label><input type="text" name="category" class="form-control" required></div>
+                <div class="mb-3"><label class="form-label">Description</label><textarea name="description" class="form-control" rows="2" required></textarea></div>
+                <div class="mb-3"><label class="form-label">Skills / Tags</label><input type="text" name="skills" class="form-control" placeholder="python, coding, sports..." required></div>
+                <button type="submit" class="btn btn-dark w-100">Save Activity</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h4 class="fw-bold mb-3">All Campus Activities</h4>
+        <div class="list-group shadow-sm">
+            {% for act in activities %}
+            <div class="list-group-item list-group-item-action p-3">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 fw-bold text-primary">{{ act.title }}</h5>
+                    <span class="badge bg-secondary">{{ act.category }}</span>
+                </div>
+                <p class="mb-1 text-muted">{{ act.description }}</p>
+                <small class="text-info">Tags: {{ act.skills }}</small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

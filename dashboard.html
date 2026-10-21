@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12 text-center py-4 bg-white rounded shadow-sm">
+        <h1 class="display-6 fw-bold text-primary">AI-Powered Activity Recommendation Engine</h1>
+        <p class="text-muted">Type your hobbies, technical skills, or sports interests below to let our AI recommend your best-fit campus activities.</p>
+        <form method="POST" class="row g-3 justify-content-center mt-3">
+            <div class="col-md-6">
+                <input type="text" name="interests" class="form-control form-control-lg" placeholder="e.g. python, machine learning, sports, cricket..." value="{{ query_interests }}" required>
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-primary btn-lg px-4">🤖 Run AI Matcher</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if recommendations %}
+<h3 class="mb-3">🎯 AI Recommendations for "{{ query_interests }}"</h3>
+<div class="row">
+    {% for rec in recommendations %}
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <span class="badge bg-success float-end">Match: {{ rec.score }}%</span>
+                <h5 class="card-title fw-bold text-dark">{{ rec.activity.title }}</h5>
+                <h6 class="text-secondary small">Category: {{ rec.activity.category }}</h6>
+                <p class="card-text mt-2">{{ rec.activity.description }}</p>
+                <p class="small text-muted mb-0"><strong>Keywords:</strong> {{ rec.activity.skills }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
